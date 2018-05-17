@@ -1,0 +1,40 @@
+# ---- Gradle
+build/
+.gradle/
+out/
+
+# ---- Maven (in integration tests)
+target/
+
+# ---- IntelliJ IDEA
+*.iws
+*.iml
+*.ipr
+.idea/
+out/
+
+# Directories generated on build on Windows
+bin/
+
+# ---- Eclipse
+.classpath
+.project
+.settings
+.externalToolBuilders
+
+# ---- Mac OS X
+.DS_Store
+Icon?
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# ---- Windows
+# Windows image file caches
+Thumbs.db 
+# Folder config file
+Desktop.ini
+
+local.properties
