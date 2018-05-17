@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#f3f3f3">
 
     <android.support.v7.widget.CardView
         android:layout_width="fill_parent"
@@ -58,9 +59,12 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/ReliabilityMetrics"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ProjectName">
 
@@ -81,14 +85,14 @@
                     android:id="@+id/BugsNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="3dp"
                     android:text="3"
                     android:textColor="#444444"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/BugsTitle"
@@ -96,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:text="Bugs"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +112,7 @@
                     android:id="@+id/BugIcon"
                     android:layout_width="14dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="12dp"
                     android:src="@drawable/ic_bug_icon"
                     app:layout_constraintStart_toStartOf="parent"
@@ -119,19 +123,21 @@
                 android:id="@+id/SeparatorLine"
                 android:layout_width="1dp"
                 android:layout_height="38dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="56dp"
                 android:background="#e6e6e6"
+                app:layout_constraintEnd_toStartOf="@+id/SecurityMetrics"
                 app:layout_constraintStart_toEndOf="@+id/ReliabilityMetrics"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/SecurityMetrics"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toEndOf="@+id/SeparatorLine"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ProjectName">
 
                 <TextView
@@ -151,21 +157,21 @@
                     android:id="@+id/VulnNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="3dp"
                     android:text="1"
                     android:textColor="#444444"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/VulnTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:text="Vulnerabilities"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -188,11 +194,73 @@
                 android:id="@+id/separatorLine"
                 android:layout_width="1dp"
                 android:layout_height="38dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="56dp"
                 android:background="#e6e6e6"
+                app:layout_constraintEnd_toStartOf="@+id/MaintainabilityMetrics"
                 app:layout_constraintStart_toEndOf="@+id/SecurityMetrics"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/MaintainabilityMetrics"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.99"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProjectName">
+
+                <TextView
+                    android:id="@+id/MaintainabilityRating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/chip_rating_badge_b"
+                    android:text="B"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/CodeSmellNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+
+                <TextView
+                    android:id="@+id/CodeSmellNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="3dp"
+                    android:text="12"
+                    android:textAlignment="center"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/CodeSmellsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Code Smells"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/MaintainabilityRating"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="12dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/CodeSmellNumber"
+                    app:srcCompat="@drawable/ic_code_smell_icon" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
