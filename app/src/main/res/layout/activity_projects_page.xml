@@ -123,11 +123,21 @@
                 android:id="@+id/SeparatorLine"
                 android:layout_width="1dp"
                 android:layout_height="38dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="64dp"
                 android:background="#e6e6e6"
                 app:layout_constraintEnd_toStartOf="@+id/SecurityMetrics"
                 app:layout_constraintStart_toEndOf="@+id/ReliabilityMetrics"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/separatorLine3"
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="54dp"
+                android:background="#e6e6e6"
+                app:layout_constraintEnd_toStartOf="@+id/SecurityMetrics"
+                app:layout_constraintStart_toEndOf="@+id/ReliabilityMetrics"
+                app:layout_constraintTop_toBottomOf="@+id/SeparatorLine" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/SecurityMetrics"
@@ -194,11 +204,118 @@
                 android:id="@+id/separatorLine"
                 android:layout_width="1dp"
                 android:layout_height="38dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="64dp"
                 android:background="#e6e6e6"
                 app:layout_constraintEnd_toStartOf="@+id/MaintainabilityMetrics"
                 app:layout_constraintStart_toEndOf="@+id/SecurityMetrics"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/separatorLine4"
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="54dp"
+                android:background="#e6e6e6"
+                app:layout_constraintEnd_toStartOf="@+id/MaintainabilityMetrics"
+                app:layout_constraintStart_toEndOf="@+id/SecurityMetrics"
+                app:layout_constraintTop_toBottomOf="@+id/separatorLine" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/SizeMetrics"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.99"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReliabilityMetrics">
+
+                <TextView
+                    android:id="@+id/SizeBadge"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="108dp"
+                    android:background="@drawable/chip_size_badge"
+                    android:minEms="2"
+                    android:text="XS"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/LoCNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+
+                <TextView
+                    android:id="@+id/LoCNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="3dp"
+                    android:text="120"
+                    android:textAlignment="center"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/Languages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Java, C++"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/DuplicationsMetrics"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReliabilityMetrics">
+
+                <TextView
+                    android:id="@+id/DuplicationsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="3dp"
+                    android:text="4.6%"
+                    android:textAlignment="center"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/DuplicationsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Duplications"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/DuplicationsNumber" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/MaintainabilityMetrics"
@@ -259,6 +376,48 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/CodeSmellNumber"
                     app:srcCompat="@drawable/ic_code_smell_icon" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/CoverageMetrics"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.008"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ReliabilityMetrics">
+
+                <TextView
+                    android:id="@+id/CoverageNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="3dp"
+                    android:text="89.5%"
+                    android:textAlignment="center"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/CoverageTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Coverage"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/CoverageNumber" />
 
             </android.support.constraint.ConstraintLayout>
 
