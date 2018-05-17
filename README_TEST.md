@@ -4,7 +4,7 @@ SonarCloud TrackIT is an application that provides real-time SonarCloud Quality 
 
 ## Features
 
-SonarCloud TrackIT provides you with the following data points for each tracked project:
+Instantly know if your project is GO/NO-GO.  SonarCloud TrackIT provides you with the following data points for each tracked project:
 
  * Quality Gate
  * Bugs Grade
@@ -24,6 +24,8 @@ Simply install the application using the link below and authenticate using your 
 
 LINK TO DOWNLOAD
 
+SHOULD WE INCLUDE INFO ON HOW TO SIDELOAD?
+
 ## Requirements
 
 * Device Features
@@ -34,8 +36,6 @@ LINK TO DOWNLOAD
 
 SonarCloud TrackIT is open source under the LGPL v3 license. Feel free to submit Pull Requests.
 
-## Feedback
+## Feedback and Issues
 
-The preferred way to discuss about SonarLint is by posting on the [SonarLint Google Group](https://groups.google.com/forum/#!forum/sonarlint). Feel free to ask questions, report issues, and give suggestions on the Google Group.
-
-Issue tracker: https://jira.sonarsource.com/browse/SLVSCODE
+The team would love to hear your feedback and comments.  Please post them here: https://github.com/henryju/shipit2018-sonarcloud-android/issues/new
