@@ -22,13 +22,13 @@ SCREEN SHOT HERE ![sonarlint on-the-fly](images/sonarlint-vscode.gif)
 
 Simply install the application using the link below and authenticate using your normal SonarCloud credentials.  
 
-DO WE NEED THIS SECTION??
+LINK TO DOWNLOAD
 
 ## Requirements
 
-Device Features
-Platform Version
-Screen Configuration
+* Device Features
+* Platform Version
+* Screen Configuration
 
 ## Contributions and license
 
