@@ -28,6 +28,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/chip_quality_gate"
                 android:text="Failed"
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,55 +56,122 @@
                 app:layout_constraintStart_toEndOf="@+id/FavoriteIcon"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/BugsNumber"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/ReliabilityMetrics"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProjectName">
+
+                <TextView
+                    android:id="@+id/ReliabilityRating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/chip_rating_badge_a"
+                    android:text="A"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/BugsNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+
+                <TextView
+                    android:id="@+id/BugsNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="3"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+
+                <TextView
+                    android:id="@+id/BugsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Bugs"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/BugIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/ReliabilityRating"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:id="@+id/BugIcon"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_bug_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/BugsNumber" />
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/SeparatorLine"
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:background="#e6e6e6"
+                app:layout_constraintStart_toEndOf="@+id/ReliabilityMetrics"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/SecurityMetrics"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="3"
-                android:textColor="#444444"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+                app:layout_constraintStart_toEndOf="@+id/SeparatorLine"
+                app:layout_constraintTop_toBottomOf="@+id/ProjectName">
 
-            <TextView
-                android:id="@+id/ReliabilityRating"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/chip_rating_badges"
-                android:text="A"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/BugsNumber"
-                app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
+                <TextView
+                    android:id="@+id/SecurityRating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/chip_rating_badge_a"
+                    android:text="E"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/VulnNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
 
-            <TextView
-                android:id="@+id/BugsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Bugs"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/BugIcon"
-                app:layout_constraintTop_toBottomOf="@+id/ReliabilityRating"
-                app:layout_constraintVertical_bias="1.0" />
+                <TextView
+                    android:id="@+id/VulnNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="1"
+                    android:textColor="#444444"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/FavoriteIcon" />
 
-            <ImageView
-                android:id="@+id/BugIcon"
-                android:layout_width="14dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_bug_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/BugsNumber" />
+                <TextView
+                    android:id="@+id/VulnTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Bugs"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/SecurityRating"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
