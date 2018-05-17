@@ -109,7 +109,7 @@
                     android:layout_width="14dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
                     android:src="@drawable/ic_bug_icon"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/BugsNumber" />
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/chip_rating_badge_a"
+                    android:background="@drawable/chip_rating_badge_e"
                     android:text="E"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
@@ -151,6 +151,7 @@
                     android:id="@+id/VulnNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:text="1"
                     android:textColor="#444444"
@@ -163,15 +164,35 @@
                     android:id="@+id/VulnTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Bugs"
+                    android:text="Vulnerabilities"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
                     app:layout_constraintTop_toBottomOf="@+id/SecurityRating"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="14dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/VulnNumber"
+                    app:srcCompat="@drawable/ic_vulnerability_icon" />
+
             </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:id="@+id/separatorLine"
+                android:layout_width="1dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:background="#e6e6e6"
+                app:layout_constraintStart_toEndOf="@+id/SecurityMetrics"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
