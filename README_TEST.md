@@ -5,13 +5,14 @@ SonarCloud TrackIT is an application that provides real-time SonarCloud Quality 
 ## Features
 
 SonarCloud TrackIT provides you with the following data points for each tracked project:
- > Quality Gate
- > Bugs Grade
- > Vulnerabilities Grade
- > Code Smells Grade
- > Coverage %
- > Duplications %
- > LOC Count
+
+ * Quality Gate
+ * Bugs Grade
+ * Vulnerabilities Grade
+ * Code Smells Grade
+ * Coverage %
+ * Duplications %
+ * LOC Count
 
 Note: Based on your SonarCloud permissions, you will see the projects that are relevant to your account.
 
