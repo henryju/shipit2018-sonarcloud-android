@@ -1,10 +1,12 @@
 package com.example.laurawacrenier.sonarcloud_for_android;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,11 +28,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private MyProjectRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -58,11 +62,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRefresh() {
+        reloadData();
+    }
+
+    private void reloadData() {
+        String cookie = readCookie();
+        if (cookie == null) {
+            login();
+        } else {
+            new LoadDataFromSonarCloud(cookie).execute();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -72,12 +92,7 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String cookie = readCookie();
-        if (cookie == null) {
-            login();
-        } else {
-            new LoadDataFromSonarCloud(cookie).execute();
-        }
+        reloadData();
 
         // specify an adapter (see also next example)
         mAdapter = new MyProjectRecyclerViewAdapter();
@@ -87,20 +102,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        String cookie = readCookie();
-        if (cookie == null) {
-            login();
-        } else {
-            new LoadDataFromSonarCloud(cookie).execute();
-        }
+        reloadData();
     }
 
     class LoadDataFromSonarCloud extends AsyncTask<Void, Void, List<Project>> {
 
-        private String cookie;
+        private final String cookie;
 
         private LoadDataFromSonarCloud(String cookie) {
             this.cookie = cookie;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            swipeRefreshLayout.setRefreshing(true);
         }
 
         protected List<Project> doInBackground(Void... noparams) {
@@ -164,8 +179,13 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
             return projectKeyNamePair.entrySet().stream().filter(e -> measuresByComponentKey.containsKey(e.getKey()))
-                    .map(e -> new Project(e.getKey(), e.getValue(), measuresByComponentKey.get(e.getKey()).get("alert_status")))
+                    .map(e -> new Project(e.getKey(), e.getValue(),
+                            measuresByComponentKey.get(e.getKey()).get("alert_status"),
+                            measuresByComponentKey.get(e.getKey()).get("bugs"),
+                            measuresByComponentKey.get(e.getKey()).get("vulnerabilities"),
+                            measuresByComponentKey.get(e.getKey()).get("code_smells")))
                     .collect(Collectors.toList());
+
         }
 
         private String urlEncode(String s) {
@@ -182,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.getValues().addAll(projects);
             }
             mAdapter.notifyDataSetChanged();
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 

@@ -26,9 +26,10 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mProjectNameView.setText(mValues.get(position).name);
-        String alert_status = mValues.get(position).alert_status;
+        Project project = mValues.get(position);
+        holder.mItem = project;
+        holder.mProjectNameView.setText(project.name);
+        String alert_status = project.alert_status;
         switch (alert_status) {
             case "OK":
                 holder.mProjectAlertStatusView.setBackgroundResource(R.drawable.chip_quality_gate_passed);
@@ -45,6 +46,9 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
             default:
                 throw new IllegalStateException("Unknow status: " + alert_status);
         }
+        holder.mBugs.setText(project.bugs);
+        holder.mVulnerabilities.setText(project.vulnerabilities);
+        holder.mCodeSmells.setText(project.codeSmells);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +66,9 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
         public final View mView;
         public final TextView mProjectNameView;
         public final TextView mProjectAlertStatusView;
+        public final TextView mBugs;
+        public final TextView mVulnerabilities;
+        public final TextView mCodeSmells;
         public Project mItem;
 
         public ViewHolder(View view) {
@@ -69,6 +76,9 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
             mView = view;
             mProjectNameView = (TextView) view.findViewById(R.id.ProjectName);
             mProjectAlertStatusView = (TextView) view.findViewById(R.id.QGStatus);
+            mBugs = (TextView) view.findViewById(R.id.BugsNumber);
+            mVulnerabilities = (TextView) view.findViewById(R.id.VulnNumber);
+            mCodeSmells = (TextView) view.findViewById(R.id.CodeSmellNumber);
         }
 
         @Override
