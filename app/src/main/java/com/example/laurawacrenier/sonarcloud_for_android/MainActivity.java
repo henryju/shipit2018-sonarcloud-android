@@ -180,10 +180,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
             return projectKeyNamePair.entrySet().stream().filter(e -> measuresByComponentKey.containsKey(e.getKey()))
                     .map(e -> new Project(e.getKey(), e.getValue(),
-                            measuresByComponentKey.get(e.getKey()).get("alert_status"),
-                            measuresByComponentKey.get(e.getKey()).get("bugs"),
-                            measuresByComponentKey.get(e.getKey()).get("vulnerabilities"),
-                            measuresByComponentKey.get(e.getKey()).get("code_smells")))
+                            measuresByComponentKey.get(e.getKey())))
                     .collect(Collectors.toList());
 
         }
