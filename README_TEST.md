@@ -6,7 +6,9 @@ SonarCloud TrackIT is an application that provides real-time SonarCloud Quality 
 
 Instantly know if your project is GO/NO-GO.  SonarCloud TrackIT provides you with the following features for your project(s):
 
-### Product Metrics
+<dl>
+  <dt>Product Metrics</dt>
+</dl>
  * Quality Gate
  * Bugs Grade
  * Vulnerabilities Grade
@@ -14,9 +16,11 @@ Instantly know if your project is GO/NO-GO.  SonarCloud TrackIT provides you wit
  * Coverage %
  * Duplications %
  * LOC Count
-
-### Notifications
-:App users have the option to receive automatic notification when your project's Quality Gate status changes.
+ 
+ <dl>
+  <dt>Notifications</dt>
+  <dd>App users have the option to receive automatic notification when your project's Quality Gate status changes.</dd>
+</dl>
 
 Note: Based on your SonarCloud permissions, you will see the projects that are relevant to your account.
 
