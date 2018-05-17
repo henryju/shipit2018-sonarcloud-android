@@ -3,6 +3,7 @@ package com.example.laurawacrenier.sonarcloud_for_android;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -33,16 +34,21 @@ public class LoginActivity extends AppCompatActivity {
                         if (m.matches()) {
                             String cookie = m.group(1);
 
-                            Intent data = new Intent();
-                            data.putExtra("cookie", cookie);
-                            setResult(RESULT_OK, data);
-                            finish();
+                            Log.i("SonarCloud", "Cookie:  " + cookie);
+
+                            LoginActivity.this.returnCookie(cookie);
                         }
                     }
                 }
-                super.onPageFinished(view, url);
             }
         });
         web.loadUrl("https://www.sonarcloud.io/sessions/new");
+    }
+
+    private void returnCookie(String cookie) {
+        Intent data = new Intent();
+        data.putExtra("cookie", cookie);
+        setResult(RESULT_OK, data);
+        finish();
     }
 }

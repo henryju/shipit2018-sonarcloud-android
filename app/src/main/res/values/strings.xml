@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SonarCloud</string>
+    <string name="auth_cookie">auth_cookie</string>
 </resources>

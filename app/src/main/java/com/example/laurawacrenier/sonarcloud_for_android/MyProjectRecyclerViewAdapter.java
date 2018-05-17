@@ -28,6 +28,23 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mProjectNameView.setText(mValues.get(position).name);
+        String alert_status = mValues.get(position).alert_status;
+        switch (alert_status) {
+            case "OK":
+                holder.mProjectAlertStatusView.setBackgroundResource(R.drawable.chip_quality_gate_passed);
+                holder.mProjectAlertStatusView.setText("Passed");
+                break;
+            case "WARN":
+                holder.mProjectAlertStatusView.setBackgroundResource(R.drawable.chip_quality_gate_warning);
+                holder.mProjectAlertStatusView.setText("Warning");
+                break;
+            case "ERROR":
+                holder.mProjectAlertStatusView.setBackgroundResource(R.drawable.chip_quality_gate_failed);
+                holder.mProjectAlertStatusView.setText("Failed");
+                break;
+            default:
+                throw new IllegalStateException("Unknow status: " + alert_status);
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,12 +61,14 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mProjectNameView;
+        public final TextView mProjectAlertStatusView;
         public Project mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mProjectNameView = (TextView) view.findViewById(R.id.ProjectName);
+            mProjectAlertStatusView = (TextView) view.findViewById(R.id.QGStatus);
         }
 
         @Override

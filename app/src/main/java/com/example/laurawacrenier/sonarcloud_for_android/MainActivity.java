@@ -1,6 +1,8 @@
 package com.example.laurawacrenier.sonarcloud_for_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +13,14 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,15 +31,25 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyProjectRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String mCookie = "";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        mCookie = data.getStringExtra("cookie");
-
-        new LoadFavorites().execute();
-
+        String cookie = data.getStringExtra("cookie");
+        storeCookie(cookie);
+        new LoadDataFromSonarCloud(cookie).execute();
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void storeCookie(String cookie) {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.auth_cookie), cookie);
+        editor.apply();
+    }
+
+    private String readCookie() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getString(getString(R.string.auth_cookie), null);
     }
 
     protected void login() {
@@ -56,16 +72,38 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        new LoadFavorites().execute();
+        String cookie = readCookie();
+        if (cookie == null) {
+            login();
+        } else {
+            new LoadDataFromSonarCloud(cookie).execute();
+        }
 
         // specify an adapter (see also next example)
         mAdapter = new MyProjectRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    class LoadFavorites extends AsyncTask<Void, Void, Favorites> {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String cookie = readCookie();
+        if (cookie == null) {
+            login();
+        } else {
+            new LoadDataFromSonarCloud(cookie).execute();
+        }
+    }
 
-        protected Favorites doInBackground(Void... noparams) {
+    class LoadDataFromSonarCloud extends AsyncTask<Void, Void, List<Project>> {
+
+        private String cookie;
+
+        private LoadDataFromSonarCloud(String cookie) {
+            this.cookie = cookie;
+        }
+
+        protected List<Project> doInBackground(Void... noparams) {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
                         @Override
@@ -73,34 +111,75 @@ public class MainActivity extends AppCompatActivity {
                             final Request original = chain.request();
 
                             final Request authorized = original.newBuilder()
-                                    .addHeader("Cookie", "JWT-SESSION=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJBV051bUNpNUNpVjY3eS14TmxhRyIsInN1YiI6InZhbGhyaXN0b3ZAZ2l0aHViIiwiaWF0IjoxNTI2NTY4ODU1LCJleHAiOjE1MjY4MjgwNTUsImxhc3RSZWZyZXNoVGltZSI6MTUyNjU2ODg1NTczNywieHNyZlRva2VuIjoiNDF2dmkyMGcxNHQ1Z2d0ZGI4YjdqczFzdDkifQ.e2QWXNALTtOwr54Qkaes-_1TximpQ3yOPOPrWehmcQw")
+                                    .addHeader("Cookie", cookie)
                                     .build();
 
                             return chain.proceed(authorized);
                         }
                     }).build();
-            String credential = Credentials.basic("ea97c37ca106a3a5921a9b79c937d24b29a2e8bd", "");
+            Log.i("SonarCloud", "Loading favorites projects");
             Request request = new Request.Builder()
                     .url("https://sonarcloud.io/api/favorites/search")
-                    //.addHeader("Authorization", credential)
                     .build();
 
+            Map<String, String> projectKeyNamePair;
             try (Response response = client.newCall(request).execute()) {
                 if (response.isSuccessful()) {
-                    return new Gson().fromJson(response.body().charStream(), Favorites.class);
+                    projectKeyNamePair = new Gson().fromJson(response.body().charStream(), Favorites.class).favorites.stream().collect(Collectors.toMap(f -> f.key, f -> f.name));
+                } else if (response.code() == 401) {
+                    MainActivity.this.login();
+                    return null;
                 } else {
                     Log.e("SonarCloud", "Unable to fetch favorite projects: " + response.code());
+                    return null;
                 }
             } catch (Exception e) {
                 Log.e("SonarCloud", "Unable to fetch favorite projects: " + e.getMessage());
+                return null;
             }
-            return null;
+
+            String url = "https://sonarcloud.io/api/measures/search?metricKeys=alert_status%2Cbugs%2Creliability_rating%2Cvulnerabilities%2Csecurity_rating%2Ccode_smells%2Csqale_rating%2Cduplicated_lines_density%2Ccoverage%2Cncloc%2Cncloc_language_distribution&projectKeys=" + projectKeyNamePair.keySet()
+                    .stream()
+                    .map(this::urlEncode)
+                    .collect(Collectors.joining(","));
+            Request requestMetric = new Request.Builder()
+                    .url(url)
+                    .build();
+            Log.i("SonarCloud", "Loading measures");
+            Map<String, Map<String, String>> measuresByComponentKey = new HashMap<>();
+            try (Response response = client.newCall(requestMetric).execute()) {
+                if (response.isSuccessful()) {
+                    new Gson().fromJson(response.body().charStream(), Measures.class).measures.forEach(m -> {
+                        measuresByComponentKey.computeIfAbsent(m.component, k -> new HashMap<>()).put(m.metric, m.value);
+                    });
+                } else if (response.code() == 401) {
+                    MainActivity.this.login();
+                    return null;
+                } else {
+                    Log.e("SonarCloud", "Unable to fetch measures: " + response.code());
+                    return null;
+                }
+            } catch (Exception e) {
+                Log.e("SonarCloud", "Unable to fetch measures: " + e.getMessage());
+                return null;
+            }
+            return projectKeyNamePair.entrySet().stream().filter(e -> measuresByComponentKey.containsKey(e.getKey()))
+                    .map(e -> new Project(e.getKey(), e.getValue(), measuresByComponentKey.get(e.getKey()).get("alert_status")))
+                    .collect(Collectors.toList());
         }
 
-        protected void onPostExecute(Favorites favs) {
+        private String urlEncode(String s) {
+            try {
+                return URLEncoder.encode(s, StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+
+        protected void onPostExecute(List<Project> projects) {
             mAdapter.getValues().clear();
-            if (favs != null) {
-                mAdapter.getValues().addAll(favs.favorites.stream().map(f -> new Project(f.key, f.name)).collect(Collectors.toList()));
+            if (projects != null) {
+                mAdapter.getValues().addAll(projects);
             }
             mAdapter.notifyDataSetChanged();
         }
@@ -108,13 +187,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     static class Favorites {
-
         List<Favorite> favorites;
+    }
 
+    static class Measures {
+        List<Measure> measures;
     }
 
     static class Favorite {
         String key;
         String name;
+    }
+
+    static class Measure {
+        String metric;
+        String value;
+        String component;
     }
 }
