@@ -17,7 +17,7 @@ Instantly know if your project is GO/NO-GO.  SonarCloud TrackIT provides you wit
  
  #### _Notifications_
  
-App users have the option to receive automatic notification when your project's Quality Gate status change
+* App users have the option to receive automatic notification when your project's Quality Gate status change
 
 Note: Based on your SonarCloud permissions, you will see the projects that are relevant to your account.
 
