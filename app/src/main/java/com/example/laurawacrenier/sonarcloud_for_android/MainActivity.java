@@ -1,5 +1,6 @@
 package com.example.laurawacrenier.sonarcloud_for_android;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,21 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private MyProjectRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private String mCookie = "";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCookie = data.getStringExtra("cookie");
+
+        new LoadFavorites().execute();
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    protected void login() {
+        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+        startActivityForResult(intent, 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
