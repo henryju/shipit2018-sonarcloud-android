@@ -1,6 +1,5 @@
 package com.example.laurawacrenier.sonarcloud_for_android;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,9 +17,12 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import okhttp3.Interceptor;
@@ -97,7 +99,25 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         // specify an adapter (see also next example)
         mAdapter = new MyProjectRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        new RegisterFirebase().execute("project1", "project2");
     }
+
+
+    private class RegisterFirebase extends AsyncTask<String, String, Void> {
+        private NotificationRegistration notificationRegistration = new NotificationRegistration();
+
+        @Override
+        protected Void doInBackground(String... projectKeys) {
+            Set<String> projectSet = new HashSet<>(Arrays.asList(projectKeys));
+            try {
+                notificationRegistration.register(projectSet);
+            } catch (IOException e) {
+                Log.w("Registration", "Failed to register projects for notifications", e);
+            }
+            return null;
+        }
+    }
+
 
     @Override
     protected void onResume() {

@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1010850683234",
+    "firebase_url": "https://sonarcloud-3de8d.firebaseio.com",
+    "project_id": "sonarcloud-3de8d",
+    "storage_bucket": "sonarcloud-3de8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010850683234:android:f6504d19c59ab460",
+        "android_client_info": {
+          "package_name": "com.example.laurawacrenier.sonarcloud_for_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010850683234-ic8k20c8ebf5ebnl78gn9mu1mkple2s5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.laurawacrenier.sonarcloud_for_android",
+            "certificate_hash": "d6e9f280649160a92f5038eaf5e5f581e6094ee5"
+          }
+        },
+        {
+          "client_id": "1010850683234-ii2u0otvupklnaad780r9g1u4bsfegum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmyxsv7KZd_JztnmRcc1WUHwVG3ZIzOxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010850683234-ii2u0otvupklnaad780r9g1u4bsfegum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010850683234:android:080b6e512a10b095",
+        "android_client_info": {
+          "package_name": "mobile.sonarsource.com.sonarcloud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010850683234-78anjkjnbsbdsv6nlfo2p2e2bcnfk6ob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mobile.sonarsource.com.sonarcloud",
+            "certificate_hash": "d6e9f280649160a92f5038eaf5e5f581e6094ee5"
+          }
+        },
+        {
+          "client_id": "1010850683234-ii2u0otvupklnaad780r9g1u4bsfegum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmyxsv7KZd_JztnmRcc1WUHwVG3ZIzOxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010850683234-ii2u0otvupklnaad780r9g1u4bsfegum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
