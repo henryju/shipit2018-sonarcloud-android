@@ -1,6 +1,7 @@
 package com.example.laurawacrenier.sonarcloud_for_android;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProjectRecyclerViewAdapter.ViewHolder> {
-
+    private static final int VIEW_TYPE_EMPTY_LIST_PLACEHOLDER = 0;
+    private static final int VIEW_TYPE_OBJECT_VIEW = 1;
     private final List<Project> mValues = new CopyOnWriteArrayList<>();
 
     public List<Project> getValues() {
@@ -19,14 +21,35 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (mValues.isEmpty()) {
+            return VIEW_TYPE_EMPTY_LIST_PLACEHOLDER;
+        } else {
+            return VIEW_TYPE_OBJECT_VIEW;
+        }
+    }
+
+    @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_projects_page, parent, false);
-        return new ViewHolder(view);
+        Log.i("SonarCloud", "View type " + viewType);
+        switch(viewType) {
+            case VIEW_TYPE_EMPTY_LIST_PLACEHOLDER:
+                View emptyView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.activity_no_projects, parent, false);
+                return new ViewHolder(emptyView);
+            case VIEW_TYPE_OBJECT_VIEW:
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.activity_projects_page, parent, false);
+                return new ViewHolder(view);
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        if (mValues.size() == 0) {
+            return;
+        }
         Project project = mValues.get(position);
         holder.mItem = project;
         holder.mProjectNameView.setText(project.name);
@@ -148,7 +171,7 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return mValues.size() == 0 ? 1 : mValues.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

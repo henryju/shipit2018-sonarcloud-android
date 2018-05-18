@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -18,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private RecyclerView mRecyclerView;
     private MyProjectRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TextView mEmptyView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
@@ -85,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(this);
+        mEmptyView = findViewById(R.id.empty_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -183,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
             new RegisterFirebase().execute(projectKeyNamePair.keySet().toArray(new String[0]));
 
+            if (projectKeyNamePair.isEmpty()) {
+                return Collections.emptyList();
+            }
             String url = "https://sonarcloud.io/api/measures/search?metricKeys=alert_status%2Cbugs%2Creliability_rating%2Cvulnerabilities%2Csecurity_rating%2Ccode_smells%2Csqale_rating%2Cduplicated_lines_density%2Ccoverage%2Cncloc%2Cncloc_language_distribution&projectKeys=" + projectKeyNamePair.keySet()
                     .stream()
                     .map(this::urlEncode)

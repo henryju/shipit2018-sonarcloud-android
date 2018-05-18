@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".no_projects"></activity>
         <service
             android:name=".FirebaseSonarCloudService">
             <intent-filter>
