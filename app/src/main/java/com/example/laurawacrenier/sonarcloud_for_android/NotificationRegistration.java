@@ -20,8 +20,6 @@ public class NotificationRegistration {
 
     /**
      * Attempt to register a set of project keys to receive notifications about their quality gates.
-     *
-     * @return whether the operation succeeded.
      */
     public void register(Set<String> projectKeys) throws IOException {
         Log.i(TAG, "Registering " + projectKeys.size() + " projects for notifications");

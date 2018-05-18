@@ -28,6 +28,11 @@ public class NotificationHandler extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            String json = remoteMessage.getData().get("webhook");
+            Webhook webhook = Webhook.parse(json);
+            String projectKey = webhook.project.key;
+            String qualityGate = webhook.qualityGate.status;
+            Log.i(TAG, "Project " + projectKey + " has status " + qualityGate);
         }
 
         // Check if message contains a notification payload.
