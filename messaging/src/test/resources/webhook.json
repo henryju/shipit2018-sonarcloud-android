@@ -1,0 +1,63 @@
+{
+  "serverUrl": "https://sonarcloud.io",
+  "taskId": "AWNvaI34ywh136gNgR5r",
+  "status": "SUCCESS",
+  "analysedAt": "2018-05-17T20:41:44+0200",
+  "changedAt": "2018-05-17T20:41:44+0200",
+  "project": {
+    "key": "org.sonarsource.sonarlint:sonarlint-cli",
+    "name": "SonarLint CLI",
+    "url": "https://sonarcloud.io/dashboard?id=org.sonarsource.sonarlint%3Asonarlint-cli"
+  },
+  "branch": {
+    "name": "master",
+    "type": "LONG",
+    "isMain": true,
+    "url": "https://sonarcloud.io/dashboard?id=org.sonarsource.sonarlint%3Asonarlint-cli"
+  },
+  "qualityGate": {
+    "name": "Sonar way",
+    "status": "OK",
+    "conditions": [
+      {
+        "metric": "new_coverage",
+        "operator": "LESS_THAN",
+        "status": "NO_VALUE",
+        "onLeakPeriod": true,
+        "errorThreshold": "80"
+      },
+      {
+        "metric": "new_maintainability_rating",
+        "operator": "GREATER_THAN",
+        "value": "1",
+        "status": "OK",
+        "onLeakPeriod": true,
+        "errorThreshold": "1"
+      },
+      {
+        "metric": "new_security_rating",
+        "operator": "GREATER_THAN",
+        "value": "1",
+        "status": "OK",
+        "onLeakPeriod": true,
+        "errorThreshold": "1"
+      },
+      {
+        "metric": "new_reliability_rating",
+        "operator": "GREATER_THAN",
+        "value": "1",
+        "status": "OK",
+        "onLeakPeriod": true,
+        "errorThreshold": "1"
+      },
+      {
+        "metric": "new_duplicated_lines_density",
+        "operator": "GREATER_THAN",
+        "status": "NO_VALUE",
+        "onLeakPeriod": true,
+        "errorThreshold": "3"
+      }
+    ]
+  },
+  "properties": {}
+}
