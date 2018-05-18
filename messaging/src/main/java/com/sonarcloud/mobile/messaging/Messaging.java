@@ -25,7 +25,7 @@ public class Messaging {
     FirebaseApp.initializeApp(options);
   }
 
-  public void process(String projectKey, String webhook) throws FirebaseMessagingException {
+  public void process(String projectKey, String qualityGate, String webhook) throws FirebaseMessagingException {
     //TODO optimize this O(N.M)
 
     Set<String> usersToNotify = new HashSet<>();
@@ -37,7 +37,7 @@ public class Messaging {
     }
 
     for (String token : usersToNotify) {
-      sendMessage(token, webhook);
+      sendMessage(projectKey, qualityGate, token, webhook);
     }
   }
 
@@ -46,11 +46,13 @@ public class Messaging {
     System.out.println(String.format("Registered for user %s the following projects: %s", uuid, Arrays.toString(projectKeys.toArray(new String[projectKeys.size()]))));
   }
 
-  private void sendMessage(String token, String webhook) throws FirebaseMessagingException {
+  private void sendMessage(String projectKey, String qualityGate, String token, String webhook) throws FirebaseMessagingException {
     System.out.println(String.format("Sending message to '%s' ", token));
 
     // See documentation on defining a message payload.
+    String msg = "Quality gate of " + projectKey + " is now " + qualityGate;
     Message message = Message.builder()
+      .setNotification(new Notification(msg, msg))
       .putData("webhook", webhook)
       .setToken(token)
       .build();

@@ -97,6 +97,17 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         // specify an adapter (see also next example)
         mAdapter = new MyProjectRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        if (getIntent().getExtras() != null) {
+            handleMessage(getIntent().getExtras().getString("webhook"));
+        }
+    }
+
+    private void handleMessage(String json) {
+        Webhook webhook = Webhook.parse(json);
+        String projectKey = webhook.project.key;
+        String qualityGate = webhook.qualityGate.status;
+        Log.i("Notif", "Project " + projectKey + " has status " + qualityGate);
+        // TODO
     }
 
 
