@@ -103,13 +103,14 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void handleMessage(String json) {
-        Webhook webhook = Webhook.parse(json);
-        String projectKey = webhook.project.key;
-        String qualityGate = webhook.qualityGate.status;
-        Log.i("Notif", "Project " + projectKey + " has status " + qualityGate);
-        // TODO
+        if (json != null) {
+            Webhook webhook = Webhook.parse(json);
+            String projectKey = webhook.project.key;
+            String qualityGate = webhook.qualityGate.status;
+            Log.i("Notif", "Project " + projectKey + " has status " + qualityGate);
+            // TODO
+        }
     }
-
 
     private class RegisterFirebase extends AsyncTask<String, String, Void> {
         private NotificationRegistration notificationRegistration = new NotificationRegistration();
