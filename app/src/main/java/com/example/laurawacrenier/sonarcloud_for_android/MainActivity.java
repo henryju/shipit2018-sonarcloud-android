@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         // specify an adapter (see also next example)
         mAdapter = new MyProjectRecyclerViewAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        new RegisterFirebase().execute("project1", "project2");
     }
 
 
@@ -170,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Log.e("SonarCloud", "Unable to fetch favorite projects: " + e.getMessage());
                 return null;
             }
+
+            new RegisterFirebase().execute(projectKeyNamePair.keySet().toArray(new String[0]));
 
             String url = "https://sonarcloud.io/api/measures/search?metricKeys=alert_status%2Cbugs%2Creliability_rating%2Cvulnerabilities%2Csecurity_rating%2Ccode_smells%2Csqale_rating%2Cduplicated_lines_density%2Ccoverage%2Cncloc%2Cncloc_language_distribution&projectKeys=" + projectKeyNamePair.keySet()
                     .stream()

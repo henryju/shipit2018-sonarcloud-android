@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -62,11 +63,53 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
         holder.mMaintainabilityRating.setText(getRating(sqale_rating));
         holder.mMaintainabilityRating.setBackgroundResource(getBackGroundRating(sqale_rating));
 
+        String coverage = project.measures.get("coverage");
+        holder.mCoverageNumber.setText(coverage != null ? coverage + "%" : "");
+        String dupl = project.measures.get("duplicated_lines_density");
+        holder.mDuplicationsNumber.setText(dupl != null ? dupl + "%" : "");
+        String ncloc = project.measures.get("ncloc");
+        if (ncloc != null && ncloc.length() > 0) {
+            holder.mLoCNumber.setText(format(Integer.parseInt(ncloc)));
+            holder.mSizeBadge.setText(getNclocSize(Integer.parseInt(ncloc)));
+            holder.mSizeBadge.setVisibility(View.VISIBLE);
+        } else {
+            holder.mLoCNumber.setText("");
+            holder.mSizeBadge.setVisibility(View.INVISIBLE);
+        }
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
         });
+    }
+
+    private static String[] suffix = new String[]{"","k", "m", "b", "t"};
+    private static int MAX_LENGTH = 4;
+
+    private static String format(double number) {
+        String r = new DecimalFormat("##0E0").format(number);
+        r = r.replaceAll("E[0-9]", suffix[Character.getNumericValue(r.charAt(r.length() - 1)) / 3]);
+        while(r.length() > MAX_LENGTH || r.matches("[0-9]+\\.[a-z]")){
+            r = r.substring(0, r.length()-2) + r.substring(r.length() - 1);
+        }
+        return r;
+    }
+
+    private String getNclocSize(int i) {
+        if (i < 1000) {
+            return "XS";
+        }
+        if (i < 10000) {
+            return "S";
+        }
+        if (i < 100_000) {
+            return "M";
+        }
+        if (i < 500_000) {
+            return "L";
+        }
+        return "XL";
     }
 
     private int getBackGroundRating(String rating) {
@@ -118,6 +161,10 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
         public final TextView mReliabilityRating;
         public final TextView mSecurityRating;
         public final TextView mMaintainabilityRating;
+        public final TextView mCoverageNumber;
+        public final TextView mDuplicationsNumber;
+        public final TextView mLoCNumber;
+        public final TextView mSizeBadge;
         public Project mItem;
 
         public ViewHolder(View view) {
@@ -131,6 +178,10 @@ public class MyProjectRecyclerViewAdapter extends RecyclerView.Adapter<MyProject
             mReliabilityRating = (TextView) view.findViewById(R.id.ReliabilityRating);
             mSecurityRating = (TextView) view.findViewById(R.id.SecurityRating);
             mMaintainabilityRating = (TextView) view.findViewById(R.id.MaintainabilityRating);
+            mCoverageNumber = (TextView) view.findViewById(R.id.CoverageNumber);
+            mDuplicationsNumber = (TextView) view.findViewById(R.id.DuplicationsNumber);
+            mLoCNumber = (TextView) view.findViewById(R.id.LoCNumber);
+            mSizeBadge = (TextView) view.findViewById(R.id.SizeBadge);
         }
 
         @Override
