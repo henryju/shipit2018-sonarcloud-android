@@ -6,7 +6,7 @@ SonarCloud Trackit is an application that provides real-time SonarCloud Quality 
 
 Instantly know if your project is GO/NO-GO.  SonarCloud Trackit provides you with the following features for your project(s):
 
-#### _Project Metrics_
+#### _Project Metrics Tracked_
  * Quality Gate
  * Bugs Grade
  * Vulnerabilities Grade
@@ -36,10 +36,6 @@ Here's some helpful information about installing non-Play Store apps on any Andr
 * Device Features
 * Platform Version
 * Screen Configuration
-
-## Contributions and license
-
-SonarCloud Trackit is open source under the LGPL v3 license. Feel free to submit Pull Requests.
 
 ## Feedback and Issues
 
